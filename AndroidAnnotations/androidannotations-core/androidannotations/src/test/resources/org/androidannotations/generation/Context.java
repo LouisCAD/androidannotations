@@ -15,6 +15,7 @@
  */
 package android.content;
 
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -24,6 +25,14 @@ public class Context {
 	}
 	
 	public Drawable getDrawable(int id) {
+		return null;
+	}
+
+	public int getColor(int id) {
+		return 0;
+	}
+
+	public ColorStateList getColorStateList(int id) {
 		return null;
 	}
 }

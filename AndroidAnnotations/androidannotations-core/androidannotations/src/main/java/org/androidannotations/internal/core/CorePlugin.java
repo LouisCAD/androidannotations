@@ -34,6 +34,8 @@ import org.androidannotations.internal.core.handler.BeanHandler;
 import org.androidannotations.internal.core.handler.BeforeTextChangeHandler;
 import org.androidannotations.internal.core.handler.CheckedChangeHandler;
 import org.androidannotations.internal.core.handler.ClickHandler;
+import org.androidannotations.internal.core.handler.ColorResHandler;
+import org.androidannotations.internal.core.handler.ColorStateListResHandler;
 import org.androidannotations.internal.core.handler.CustomTitleHandler;
 import org.androidannotations.internal.core.handler.DefaultResHandler;
 import org.androidannotations.internal.core.handler.DrawableResHandler;
@@ -152,6 +154,10 @@ public class CorePlugin extends AndroidAnnotationsPlugin {
 		for (AndroidRes androidRes : AndroidRes.values()) {
 			if (androidRes == AndroidRes.ANIMATION) {
 				annotationHandlers.add(new AnimationResHandler(androidAnnotationEnv));
+			} else if (androidRes == AndroidRes.COLOR) {
+				annotationHandlers.add(new ColorResHandler(androidAnnotationEnv));
+			} else if (androidRes == AndroidRes.COLOR_STATE_LIST) {
+				annotationHandlers.add(new ColorStateListResHandler(androidAnnotationEnv));
 			} else if (androidRes == AndroidRes.DRAWABLE) {
 				annotationHandlers.add(new DrawableResHandler(androidAnnotationEnv));
 			} else if (androidRes == AndroidRes.HTML) {
@@ -195,19 +201,16 @@ public class CorePlugin extends AndroidAnnotationsPlugin {
 		annotationHandlers.add(new OnActivityResultHandler(androidAnnotationEnv));
 
 		annotationHandlers.add(new IgnoredWhenDetachedHandler(androidAnnotationEnv));
-		/* After injection methods must be after injections */
+
 		annotationHandlers.add(new AfterInjectHandler(androidAnnotationEnv));
 		annotationHandlers.add(new AfterExtrasHandler(androidAnnotationEnv));
 		annotationHandlers.add(new AfterViewsHandler(androidAnnotationEnv));
 
-		/* preference screen handler must be after injections */
 		annotationHandlers.add(new PreferenceScreenHandler(androidAnnotationEnv));
 		annotationHandlers.add(new PreferenceHeadersHandler(androidAnnotationEnv));
-		/* Preference injections must be after preference screen handler */
 		annotationHandlers.add(new PreferenceByKeyHandler(androidAnnotationEnv));
 		annotationHandlers.add(new PreferenceChangeHandler(androidAnnotationEnv));
 		annotationHandlers.add(new PreferenceClickHandler(androidAnnotationEnv));
-		/* After preference injection methods must be after preference injections */
 		annotationHandlers.add(new AfterPreferencesHandler(androidAnnotationEnv));
 
 		if (androidAnnotationEnv.getOptionBooleanValue(OPTION_TRACE)) {
